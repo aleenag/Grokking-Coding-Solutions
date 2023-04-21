@@ -1,0 +1,26 @@
+import java.util.*;
+class Intersection {
+  // Function to find the intersecting points between two intervals
+  public static List <Interval> intervalsIntersection(List <Interval> intervalLista, List <Interval> intervalListb) {
+    List <Interval> intersections = new ArrayList <>(); // to store all intersecting intervals
+     int i =0;
+     int j = 0;
+
+     while(i < intervalLista.size() && j < intervalListb.size()){
+       
+       int start = Math.max(intervalLista.get(i).getStart(),intervalListb.get(j).getStart());
+       int end = Math.min(intervalLista.get(i).getEnd(),intervalListb.get(j).getEnd());
+       if(start<=end){
+         intersections.add(new Interval(start,end));
+       }
+     
+    
+    if(intervalLista.get(i).getEnd() < intervalListb.get(j).getEnd()){
+      i+=1;
+    }else{
+      j+=1;
+    }
+     }
+    return intersections;
+  }
+}
