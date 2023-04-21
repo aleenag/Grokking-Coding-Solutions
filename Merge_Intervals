@@ -1,0 +1,24 @@
+import java.util.*;
+class MergeInterval {
+  public static List <Interval> mergeIntervals(List <Interval> l) {
+    List<Interval> result = new ArrayList<>();
+    if(l.size()==0)
+       return result;
+
+    result.add(new Interval(l.get(0).getStart(),l.get(0).getEnd()));
+    for(int i = 1;i<l.size();i++){
+        Interval lastAddedInterval = result.get(result.size()-1);
+        
+        int currstrt = l.get(i).getStart();
+        int currend = l.get(i).getEnd();
+        int prevend = lastAddedInterval.getEnd();
+        if(prevend>=currstrt){
+             lastAddedInterval.setEnd(Math.max(currend,prevend));
+
+        }else{
+          result.add(new Interval(currstrt,currend));
+        }
+    }
+    return result;
+  }
+}
