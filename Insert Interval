@@ -1,0 +1,33 @@
+import java.util.*;
+class InsertInterval {
+
+  public static List <Interval> insertInterval(List <Interval> existingIntervals, Interval newInterval) {
+    List <Interval> result = new ArrayList <Interval> ();
+     int i =0;
+     int n = existingIntervals.size();
+     int newStart = newInterval.getStart();
+     int newEnd = newInterval.getEnd();
+     while(i<n && existingIntervals.get(i).getStart() < newStart){
+       result.add(existingIntervals.get(i));
+       i+=1;
+     }
+     if(result.size()== 0 || result.get(result.size()-1).getEnd() < newStart){
+       result.add(newInterval);
+     }else{
+       result.get(result.size()-1).setEnd(Math.max(newEnd,result.get(result.size()-1).getEnd()));
+     }
+
+     while(i < n){
+      Interval ei = existingIntervals.get(i);
+      int start = ei.getStart();
+      int end = ei.getEnd();
+      if(result.get(result.size()-1).getEnd() < start){
+        result.add(ei);
+      }else{
+        result.get(result.size()-1).setEnd(Math.max(result.get(result.size()-1).getEnd(),end));
+      }
+      i+=1;
+     }
+    return result;
+  }
+}
